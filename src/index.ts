@@ -141,4 +141,18 @@ app.post(
   }
 )
 
+app.post('/transcriptions', async (c) => {
+  const formData = await c.req.formData();
+
+  formData.append("model", "FunAudioLLM/SenseVoiceSmall");
+  
+  const options = {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${c.env.API_KEY}` },
+    body: formData
+  };
+  
+  return fetch('https://api.siliconflow.cn/v1/audio/transcriptions', options)  
+})
+
 export default app
